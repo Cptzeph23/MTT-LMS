@@ -6,23 +6,22 @@
 </head>
 <body class="bg-light">
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card p-4 shadow">
-                <h4 class="text-center mb-3">LMS Login</h4>
+<div class="text-center">
+    <h4 class="mb-4">Login As</h4>
 
-                <form>
-                    <input class="form-control mb-3" placeholder="Username">
-                    <input class="form-control mb-3" placeholder="Password" type="password">
-                    <a href="{% url 'student_dashboard' %}" class="btn btn-primary w-100">
-                        Login (Demo)
-                    </a>
-                </form>
-            </div>
-        </div>
-    </div>
+    <a href="{% url 'login_role' 'student' %}" class="btn btn-primary w-100 mb-2">
+        Student
+    </a>
+
+    <a href="{% url 'login_role' 'teacher' %}" class="btn btn-success w-100 mb-2">
+        Teacher
+    </a>
+
+    <a href="{% url 'login_role' 'admin' %}" class="btn btn-dark w-100">
+        Admin
+    </a>
 </div>
+
 
 </body>
 </html>
