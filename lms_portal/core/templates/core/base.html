@@ -121,7 +121,7 @@
                <a href="{% url 'reports' %}">Financial Reports</a>
 
             {% elif request.session.role == 'academic_admin' %}
-               <a href="#">Students</a>
+              <a href="{% url 'student_list' %}">🎓 Students</a>
               <a href="#">Grades</a>
 
     {% elif request.session.role == 'staff_admin' %}

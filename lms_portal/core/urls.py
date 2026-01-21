@@ -18,4 +18,9 @@ urlpatterns = [
     path('admin/reports/', views.reports, name='reports'),
 
     path('profile/', views.profile, name='profile'),
+    path('students/', views.student_list, name='student_list'),
+    path('students/add/', views.add_student, name='add_student'),
+    path('students/<int:student_id>/', views.student_detail, name='student_detail'),
+
+
 ]

@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h2>Student Profile</h2>
+
+<div class="card p-4">
+    <p><b>Admission Number:</b> {{ student.admission_number }}</p>
+    <p><b>Full Name:</b> {{ student.full_name }}</p>
+    <p><b>Gender:</b> {{ student.gender }}</p>
+    <p><b>Date of Birth:</b> {{ student.date_of_birth }}</p>
+    <p><b>Class:</b> {{ student.class_name }}</p>
+    <p><b>Academic Year:</b> {{ student.academic_year }}</p>
+    <p><b>Guardian:</b> {{ student.guardian_name }} ({{ student.guardian_phone }})</p>
+
+    <a href="{% url 'student_list' %}" class="btn btn-secondary mt-3">
+        Back to Students
+    </a>
+</div>
+
+{% endblock %}
