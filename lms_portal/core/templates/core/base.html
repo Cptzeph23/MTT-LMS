@@ -119,6 +119,9 @@
 
              {% elif request.session.role == 'finance_admin' %}
                <a href="{% url 'reports' %}">Financial Reports</a>
+                 <a href="{% url 'fee_category_list' %}">💰 Fee Categories</a>
+                 <a href="{% url 'fee_structure_list' %}">💵 Fee Structures</a>
+
 
             {% elif request.session.role == 'academic_admin' %}
               <a href="{% url 'student_list' %}">🎓 Students</a>

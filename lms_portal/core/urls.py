@@ -29,5 +29,13 @@ urlpatterns = [
     path('students/pdf/', views.student_pdf, name='student_pdf'),
     path('staff/pdf/', views.staff_pdf, name='staff_pdf'),
 
+    # Fee Categories
+    path('fees/categories/', views.fee_category_list, name='fee_category_list'),
+    path('fees/categories/add/', views.add_fee_category, name='add_fee_category'),
+
+    # Fee Structures
+    path('fees/structure/', views.fee_structure_list, name='fee_structure_list'),
+    path('fees/structure/add/', views.add_fee_structure, name='add_fee_structure'),
+
 
 ]

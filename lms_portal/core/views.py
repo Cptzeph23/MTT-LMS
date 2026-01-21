@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .utils import render_to_pdf
 from .models import Student, Staff
+from .models import FeeCategory, FeeStructure
+
 
 def role_required(allowed_roles):
     def decorator(view_func):
@@ -131,5 +133,42 @@ def student_pdf(request):
 def staff_pdf(request):
     staff_members = Staff.objects.all()
     return render_to_pdf("core/staff_pdf.html", {"staff_members": staff_members})
+
+
+
+# Fee Categories
+@role_required(['super_admin', 'finance_admin'])
+def fee_category_list(request):
+    categories = FeeCategory.objects.all()
+    return render(request, "core/fee_category_list.html", {"categories": categories})
+
+@role_required(['super_admin', 'finance_admin'])
+def add_fee_category(request):
+    if request.method == "POST":
+        FeeCategory.objects.create(
+            name=request.POST.get("name"),
+            description=request.POST.get("description")
+        )
+        return redirect('fee_category_list')
+    return render(request, "core/add_fee_category.html")
+
+# Fee Structures
+@role_required(['super_admin', 'finance_admin'])
+def fee_structure_list(request):
+    fees = FeeStructure.objects.all()
+    return render(request, "core/fee_structure_list.html", {"fees": fees})
+
+@role_required(['super_admin', 'finance_admin'])
+def add_fee_structure(request):
+    categories = FeeCategory.objects.all()
+    if request.method == "POST":
+        FeeStructure.objects.create(
+            fee_category=FeeCategory.objects.get(id=request.POST.get("fee_category")),
+            class_name=request.POST.get("class_name"),
+            amount=request.POST.get("amount"),
+            academic_year=request.POST.get("academic_year")
+        )
+        return redirect('fee_structure_list')
+    return render(request, "core/add_fee_structure.html", {"categories": categories})
 
 
