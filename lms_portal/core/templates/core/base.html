@@ -6,18 +6,9 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <style>
         body {
             background: #f4f6f9;
-            transition: 0.3s;
-        }
-
-        body.dark {
-            background: #0f172a;
-            color: #e5e7eb;
         }
 
         .sidebar {
@@ -27,20 +18,21 @@
             padding: 20px;
         }
 
-        body.dark .sidebar {
-            background: #020617;
+        .sidebar h4 {
+            font-weight: bold;
         }
 
         .sidebar a {
             color: #d1d5db;
             text-decoration: none;
             display: block;
-            padding: 10px;
-            border-radius: 6px;
+            padding: 10px 5px;
+            border-radius: 5px;
         }
 
         .sidebar a:hover {
             background: #374151;
+            color: #ffffff;
         }
 
         .content {
@@ -48,12 +40,7 @@
         }
 
         .card {
-            border-radius: 14px;
-            transition: 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
+            border-radius: 12px;
         }
 
         .role-badge {
@@ -63,22 +50,34 @@
             border-radius: 20px;
             margin-left: 5px;
         }
-
         @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -260px;
-                width: 260px;
-                z-index: 1000;
-                transition: 0.3s;
-            }
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        width: 260px;
+        z-index: 1000;
+        transition: 0.3s;
+    }
 
-            .sidebar.active {
-                left: 0;
-            }
-        }
+    .sidebar.active {
+        left: 0;
+    }
+}
+    .card:hover {
+    transform: translateY(-2px);
+    transition: 0.2s;
+}
+
+
     </style>
 </head>
+<script>
+    function toggleSidebar() {
+        document.querySelector('.sidebar').classList.toggle('active');
+    }
+</script>
+
 
 <body>
 
@@ -89,67 +88,73 @@
         <div class="col-md-2 sidebar">
 
             <h4>
-                🎓 SmartLMS
+                LMS Portal
                 {% if request.session.role %}
-                    <span class="role-badge">{{ request.session.role|title }}</span>
+                    <span class="role-badge">
+                        {{ request.session.role|title }}
+                    </span>
                 {% endif %}
             </h4>
 
             <hr>
 
+            <!-- STUDENT MENU -->
             {% if request.session.role == 'student' %}
-                <a href="{% url 'student_dashboard' %}">Dashboard</a>
-                <a href="{% url 'courses' %}">My Courses</a>
-                <a href="{% url 'profile' %}">My Profile</a>
+                <a href="{% url 'student_dashboard' %}">🏠 Dashboard</a>
+                <a href="{% url 'courses' %}">📚 My Courses</a>
 
+            <!-- TEACHER MENU -->
             {% elif request.session.role == 'teacher' %}
-                <a href="{% url 'teacher_dashboard' %}">Dashboard</a>
-                <a href="{% url 'teacher_courses' %}">My Classes</a>
-                <a href="{% url 'upload_content' %}">Upload Content</a>
-                <a href="{% url 'profile' %}">My Profile</a>
+                <a href="{% url 'teacher_dashboard' %}">🏠 Dashboard</a>
+                <a href="#">🧑‍🏫 My Classes</a>
+                <a href="#">⬆ Upload Content</a>
 
-            {% elif request.session.role == 'admin' %}
-                <a href="{% url 'admin_dashboard' %}">Dashboard</a>
-                <a href="{% url 'user_management' %}">Users</a>
-                <a href="{% url 'reports' %}">Reports</a>
+            <!-- ADMIN MENU -->
+           {% elif request.session.role in 'super_admin,finance_admin,academic_admin,staff_admin' %}
+            <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+
+            {% if request.session.role == 'super_admin' %}
+               <a href="{% url 'user_management' %}">Users</a>
+              <a href="{% url 'reports' %}">System Reports</a>
+
+             {% elif request.session.role == 'finance_admin' %}
+               <a href="{% url 'reports' %}">Financial Reports</a>
+
+            {% elif request.session.role == 'academic_admin' %}
+               <a href="#">Students</a>
+              <a href="#">Grades</a>
+
+    {% elif request.session.role == 'staff_admin' %}
+        <a href="#">Staff</a>
+    {% endif %}
+
+
             {% endif %}
 
             <hr>
 
-            <button class="btn btn-sm btn-outline-light w-100 mb-2" onclick="toggleDarkMode()">
-                🌙 Dark Mode
-            </button>
+            <!-- Logout -->
+            {% if request.session.role %}
+                <a href="{% url 'logout' %}" class="text-danger">🚪 Logout</a>
+            {% endif %}
 
-            <a href="{% url 'logout' %}" class="text-danger">Logout</a>
         </div>
 
-        <!-- Content -->
+        <!-- Main Content -->
         <div class="col-md-10 content">
 
-            <button class="btn btn-outline-secondary d-md-none mb-3" onclick="toggleSidebar()">
-                ☰ Menu
-            </button>
+             <!-- Mobile Menu Toggle -->
+             <button class="btn btn-outline-secondary d-md-none mb-3"
+                onclick="toggleSidebar()">
+                 ☰ Menu
+    </button>
 
-            <!-- Breadcrumb -->
-            <nav class="mb-3">
-                <small class="text-muted">{{ request.path }}</small>
-            </nav>
-
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% endblock %}
         </div>
 
     </div>
 </div>
-
-<script>
-function toggleSidebar() {
-    document.querySelector('.sidebar').classList.toggle('active');
-}
-
-function toggleDarkMode() {
-    document.body.classList.toggle('dark');
-}
-</script>
 
 </body>
 </html>

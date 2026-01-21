@@ -10,12 +10,16 @@ def role_required(allowed_roles):
         return wrapper
     return decorator
 
+
 def login_view(request):
     return render(request, "core/login.html")
 
 def login_role(request, role):
     request.session['role'] = role
-    return redirect(f"{role}_dashboard")
+
+    # All admin roles go to admin dashboard
+    return redirect('admin_dashboard')
+
 
 def logout_view(request):
     request.session.flush()
@@ -29,7 +33,7 @@ def student_dashboard(request):
 def teacher_dashboard(request):
     return render(request, "core/teacher_dashboard.html")
 
-@role_required(['admin'])
+@role_required(['super_admin', 'finance_admin', 'academic_admin', 'staff_admin'])
 def admin_dashboard(request):
     return render(request, "core/admin_dashboard.html")
 
