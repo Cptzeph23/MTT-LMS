@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - LMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card p-4 shadow">
+                <h4 class="text-center mb-3">LMS Login</h4>
+
+                <form>
+                    <input class="form-control mb-3" placeholder="Username">
+                    <input class="form-control mb-3" placeholder="Password" type="password">
+                    <a href="{% url 'student_dashboard' %}" class="btn btn-primary w-100">
+                        Login (Demo)
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

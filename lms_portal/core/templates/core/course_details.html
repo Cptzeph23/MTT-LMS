@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<h2>Mathematics</h2>
+
+<div class="row mt-3">
+    <div class="col-md-8">
+        <div class="card p-3 mb-3">
+            <h5>Lesson 1: Algebra</h5>
+            <button class="btn btn-sm btn-outline-primary">Watch Video</button>
+        </div>
+
+        <div class="card p-3 mb-3">
+            <h5>Lesson Notes</h5>
+            <button class="btn btn-sm btn-outline-success">Download PDF</button>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h5>Assignments</h5>
+            <button class="btn btn-sm btn-warning w-100">Submit Assignment</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
