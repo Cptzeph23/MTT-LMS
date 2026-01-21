@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Student
+from .models import Student, Staff
 
 def role_required(allowed_roles):
     def decorator(view_func):
@@ -90,6 +90,33 @@ def add_student(request):
 def student_detail(request, student_id):
     student = Student.objects.get(id=student_id)
     return render(request, "core/student_detail.html", {"student": student})
+
+
+@role_required(['super_admin', 'staff_admin'])
+def staff_list(request):
+    staff_members = Staff.objects.all().order_by('-created_at')
+    return render(request, "core/staff_list.html", {"staff_members": staff_members})
+
+@role_required(['super_admin', 'staff_admin'])
+def add_staff(request):
+    if request.method == "POST":
+        Staff.objects.create(
+            staff_number=request.POST.get("staff_number"),
+            full_name=request.POST.get("full_name"),
+            role=request.POST.get("role"),
+            phone=request.POST.get("phone"),
+            email=request.POST.get("email"),
+            department=request.POST.get("department"),
+            date_joined=request.POST.get("date_joined") or None,
+        )
+        return redirect('staff_list')
+
+    return render(request, "core/add_staff.html")
+
+@role_required(['super_admin', 'staff_admin'])
+def staff_detail(request, staff_id):
+    staff = Staff.objects.get(id=staff_id)
+    return render(request, "core/staff_detail.html", {"staff": staff})
 
 
 

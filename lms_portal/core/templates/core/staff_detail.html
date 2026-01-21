@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h2>Staff Profile</h2>
+
+<div class="card p-4">
+    <p><b>Staff Number:</b> {{ staff.staff_number }}</p>
+    <p><b>Full Name:</b> {{ staff.full_name }}</p>
+    <p><b>Role:</b> {{ staff.get_role_display }}</p>
+    <p><b>Phone:</b> {{ staff.phone }}</p>
+    <p><b>Email:</b> {{ staff.email }}</p>
+    <p><b>Department:</b> {{ staff.department }}</p>
+    <p><b>Date Joined:</b> {{ staff.date_joined }}</p>
+
+    <a href="{% url 'staff_list' %}" class="btn btn-secondary mt-3">
+        Back to Staff
+    </a>
+</div>
+
+{% endblock %}

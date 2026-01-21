@@ -125,7 +125,8 @@
               <a href="#">Grades</a>
 
     {% elif request.session.role == 'staff_admin' %}
-        <a href="#">Staff</a>
+        <a href="{% url 'staff_list' %}">👥 Staff</a>
+
     {% endif %}
 
 

@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h2>Staff Members</h2>
+
+<a href="{% url 'add_staff' %}" class="btn btn-primary mb-3">
+    ➕ Add Staff
+</a>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Staff No</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Department</th>
+        <th>Action</th>
+    </tr>
+
+    {% for staff in staff_members %}
+    <tr>
+        <td>{{ staff.staff_number }}</td>
+        <td>{{ staff.full_name }}</td>
+        <td>{{ staff.get_role_display }}</td>
+        <td>{{ staff.department }}</td>
+        <td>
+            <a href="{% url 'staff_detail' staff.id %}" 
+               class="btn btn-sm btn-outline-primary">
+               View
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5" class="text-center text-muted">
+            No staff added yet.
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
