@@ -26,5 +26,8 @@ urlpatterns = [
     path('staff/add/', views.add_staff, name='add_staff'),
     path('staff/<int:staff_id>/', views.staff_detail, name='staff_detail'),
 
+    path('students/pdf/', views.student_pdf, name='student_pdf'),
+    path('staff/pdf/', views.staff_pdf, name='staff_pdf'),
+
 
 ]

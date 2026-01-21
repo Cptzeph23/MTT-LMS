@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .utils import render_to_pdf
 from .models import Student, Staff
 
 def role_required(allowed_roles):
@@ -118,5 +119,17 @@ def staff_detail(request, staff_id):
     staff = Staff.objects.get(id=staff_id)
     return render(request, "core/staff_detail.html", {"staff": staff})
 
+
+# Student PDF
+@role_required(['super_admin', 'academic_admin'])
+def student_pdf(request):
+    students = Student.objects.all()
+    return render_to_pdf("core/student_pdf.html", {"students": students})
+
+# Staff PDF
+@role_required(['super_admin', 'staff_admin'])
+def staff_pdf(request):
+    staff_members = Staff.objects.all()
+    return render_to_pdf("core/staff_pdf.html", {"staff_members": staff_members})
 
 
