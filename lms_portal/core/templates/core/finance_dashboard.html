@@ -1,29 +1,41 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<h3 class="mb-4">Finance Dashboard</h3>
+<h3>💰 Finance Overview</h3>
 
-<div class="row g-3">
-    <div class="col-md-6">
-        <div class="card shadow p-3">
-            <h5>Fee Structures</h5>
-            <a href="{% url 'fee_structure_list' %}" class="btn btn-success btn-sm">View</a>
+<div class="row g-4 mb-4">
+
+    <div class="col-md-4">
+        <div class="card-tile bg-dark-orange">
+            <h6>Collected</h6>
+            <h2>KES 4.2M</h2>
         </div>
     </div>
+
+    <div class="col-md-4">
+        <div class="card-tile bg-light-orange">
+            <h6>Pending</h6>
+            <h2>KES 860K</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card-tile bg-dark-green">
+            <h6>Expenses</h6>
+            <h2>KES 1.9M</h2>
+        </div>
+    </div>
+
 </div>
 
-<hr>
-<canvas id="financeChart"></canvas>
+<canvas id="financeChart" height="220"></canvas>
 
 <script>
-new Chart(document.getElementById('financeChart'), {
-    type: 'line',
+new Chart(financeChart, {
+    type: 'bar',
     data: {
-        labels: ['Term 1', 'Term 2', 'Term 3'],
-        datasets: [{
-            label: 'Projected Revenue',
-            data: [500000, 650000, 720000]
-        }]
+        labels: ['Jan','Feb','Mar','Apr','May'],
+        datasets: [{ data: [700,900,800,1100,1200] }]
     }
 });
 </script>

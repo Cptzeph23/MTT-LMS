@@ -1,43 +1,75 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<h3 class="mb-4">Super Admin Dashboard</h3>
+<h3 class="mb-4">🏫 School Management Dashboard</h3>
 
-<div class="row g-3">
-    <div class="col-md-4">
-        <div class="card shadow p-3">
-            <h5>Students</h5>
-            <a href="{% url 'student_list' %}" class="btn btn-primary btn-sm">Manage</a>
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="card-tile bg-dark-orange">
+            <h6>Total Students</h6>
+            <h2>1,245</h2>
+            <small>Active enrollments</small>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card shadow p-3">
-            <h5>Staff</h5>
-            <a href="{% url 'staff_list' %}" class="btn btn-primary btn-sm">Manage</a>
+    <div class="col-md-3">
+        <div class="card-tile bg-light-orange">
+            <h6>Total Staff</h6>
+            <h2>86</h2>
+            <small>Teaching & Admin</small>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card shadow p-3">
-            <h5>Fees</h5>
-            <a href="{% url 'fee_structure_list' %}" class="btn btn-primary btn-sm">Manage</a>
+    <div class="col-md-3">
+        <div class="card-tile bg-dark-green">
+            <h6>Fee Collection</h6>
+            <h2>KES 4.2M</h2>
+            <small>This Term</small>
         </div>
     </div>
+
+    <div class="col-md-3">
+        <div class="card-tile bg-light-green">
+            <h6>Attendance</h6>
+            <h2>94%</h2>
+            <small>Monthly Avg</small>
+        </div>
+    </div>
+
 </div>
 
 <hr>
 
-<canvas id="adminChart"></canvas>
+<div class="row">
+    <div class="col-md-6">
+        <h5>Enrollment Trends</h5>
+        <canvas id="enrollChart" height="220"></canvas>
+    </div>
+
+    <div class="col-md-6">
+        <h5>Revenue Breakdown</h5>
+        <canvas id="financeChart" height="220"></canvas>
+    </div>
+</div>
 
 <script>
-new Chart(document.getElementById('adminChart'), {
+new Chart(enrollChart, {
     type: 'bar',
     data: {
-        labels: ['Students', 'Staff', 'Fees'],
+        labels: ['2021','2022','2023','2024','2025'],
         datasets: [{
-            label: 'System Overview',
-            data: [120, 25, 8]
+            data: [850, 920, 1050, 1180, 1245]
+        }]
+    }
+});
+
+new Chart(financeChart, {
+    type: 'doughnut',
+    data: {
+        labels: ['Fees','Transport','Boarding','Uniforms'],
+        datasets: [{
+            data: [55, 20, 15, 10]
         }]
     }
 });

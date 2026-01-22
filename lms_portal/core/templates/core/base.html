@@ -4,99 +4,179 @@
     <title>LMS Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- ChartJS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        body {
-            overflow-x: hidden;
+        :root {
+            --sidebar-bg: #111;
+            --sidebar-hover: #222;
+            --cream-bg: #f4f1ec;
+
+            --dark-orange: #d35400;
+            --light-orange: #f39c12;
+            --dark-green: #1e8449;
+            --light-green: #27ae60;
         }
 
+        body {
+            background: var(--cream-bg);
+            overflow-x: hidden;
+            transition: background 0.3s;
+        }
+
+        body.dark-mode {
+            background: #1e1e1e;
+            color: #eee;
+        }
+
+        /* Sidebar */
         .sidebar {
             min-height: 100vh;
-            background: #0d6efd;
+            background: var(--sidebar-bg);
             color: white;
+            padding-top: 15px;
+            transition: 0.3s;
         }
 
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 12px 15px;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-
-        .sidebar a:hover {
-            background: rgba(255,255,255,0.2);
+        .sidebar.collapsed {
+            width: 70px !important;
         }
 
         .sidebar h4 {
-            padding: 15px;
+            padding-left: 15px;
+            font-weight: bold;
+        }
+
+        .sidebar a {
+            color: #ddd;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 5px 10px;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .sidebar a:hover {
+            background: var(--sidebar-hover);
+        }
+
+        .sidebar a.active {
+            background: #333;
+            font-weight: bold;
+        }
+
+        .badge-menu {
+            position: absolute;
+            right: 10px;
         }
 
         .content {
             padding: 25px;
+            animation: fadeIn 0.5s ease-in;
         }
 
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -100%;
-                transition: 0.3s;
-                z-index: 1000;
-            }
+        .card-tile {
+            border-radius: 12px;
+            color: white;
+            padding: 20px;
+            min-height: 120px;
+            transition: 0.3s;
+        }
 
-            .sidebar.show {
-                left: 0;
-            }
+        .card-tile:hover {
+            transform: translateY(-3px);
+        }
+
+        .bg-dark-orange { background: var(--dark-orange); }
+        .bg-light-orange { background: var(--light-orange); }
+        .bg-dark-green { background: var(--dark-green); }
+        .bg-light-green { background: var(--light-green); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
         }
     </style>
 </head>
 
-<body class="bg-light">
+<body>
 
 <div class="container-fluid">
     <div class="row">
 
         <!-- Sidebar -->
         <div id="sidebar" class="col-md-2 sidebar">
-            <h4>LMS Portal</h4>
 
-            <small class="px-3">User: {{ request.user.username }}</small>
-            <hr class="text-white">
+            <!-- Branding -->
+            <div class="d-flex align-items-center px-3 mb-3">
+                <i class="bi bi-mortarboard fs-3 me-2"></i>
+                <strong>MISHS</strong>
+            </div>
 
-            {% if request.user.profile.role == "super_admin" %}
-                <a href="{% url 'admin_dashboard' %}">🏠 Dashboard</a>
-                <a href="{% url 'student_list' %}">🎓 Students</a>
-                <a href="{% url 'staff_list' %}">👥 Staff</a>
-                <a href="{% url 'fee_structure_list' %}">💰 Fees</a>
+            <small class="px-3 text-muted">User: {{ request.user.username }}</small>
+            <hr>
 
-            {% elif request.user.profile.role == "finance_admin" %}
-                <a href="{% url 'finance_dashboard' %}">🏠 Dashboard</a>
-                <a href="{% url 'fee_structure_list' %}">💰 Fees</a>
+            {% with path=request.path %}
+                {% if request.user.profile.role == "super_admin" %}
+                    <a href="{% url 'admin_dashboard' %}" class="{% if path == '/' %}active{% endif %}">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                        <span class="badge bg-danger badge-menu">4</span>
+                    </a>
+                    <a href="{% url 'student_list' %}">
+                        <i class="bi bi-people"></i> Students
+                    </a>
+                    <a href="{% url 'staff_list' %}">
+                        <i class="bi bi-person-badge"></i> Staff
+                    </a>
+                    <a href="{% url 'fee_structure_list' %}">
+                        <i class="bi bi-cash-stack"></i> Finance
+                    </a>
 
-            {% elif request.user.profile.role == "academic_admin" %}
-                <a href="{% url 'academic_dashboard' %}">🏠 Dashboard</a>
-                <a href="{% url 'student_list' %}">🎓 Students</a>
+                {% elif request.user.profile.role == "finance_admin" %}
+                    <a href="{% url 'finance_dashboard' %}" class="active">
+                        <i class="bi bi-cash"></i> Finance
+                    </a>
 
-            {% elif request.user.profile.role == "staff_admin" %}
-                <a href="{% url 'staff_dashboard' %}">🏠 Dashboard</a>
-                <a href="{% url 'staff_list' %}">👥 Staff</a>
-            {% endif %}
+                {% elif request.user.profile.role == "academic_admin" %}
+                    <a href="{% url 'academic_dashboard' %}" class="active">
+                        <i class="bi bi-bar-chart"></i> Academics
+                    </a>
 
-            <hr class="text-white">
-            <a href="{% url 'logout' %}" class="text-warning">🚪 Logout</a>
+                {% elif request.user.profile.role == "staff_admin" %}
+                    <a href="{% url 'staff_dashboard' %}" class="active">
+                        <i class="bi bi-person-lines-fill"></i> Staff
+                    </a>
+                {% endif %}
+            {% endwith %}
+
+            <hr>
+
+            <a href="#" onclick="toggleTheme()">
+                <i class="bi bi-moon-stars"></i> Dark Mode
+            </a>
+
+            <a href="{% url 'logout' %}" class="text-warning">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
         </div>
 
-        <!-- Main Content -->
+        <!-- Content -->
         <div class="col-md-10 content">
 
-            <!-- Mobile Toggle -->
-            <button class="btn btn-primary d-md-none mb-3" onclick="toggleSidebar()">☰ Menu</button>
+            <div class="d-flex justify-content-between mb-3">
+                <button class="btn btn-outline-dark" onclick="toggleSidebar()">
+                    ☰
+                </button>
+            </div>
 
             {% block content %}{% endblock %}
         </div>
@@ -106,11 +186,13 @@
 
 <script>
 function toggleSidebar() {
-    document.getElementById("sidebar").classList.toggle("show");
+    document.getElementById("sidebar").classList.toggle("collapsed");
+}
+
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
 }
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

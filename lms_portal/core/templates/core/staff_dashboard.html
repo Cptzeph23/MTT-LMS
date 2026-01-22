@@ -1,29 +1,41 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<h3 class="mb-4">Staff Dashboard</h3>
+<h3>👥 Staff Overview</h3>
 
-<div class="row g-3">
-    <div class="col-md-6">
-        <div class="card shadow p-3">
-            <h5>Staff Records</h5>
-            <a href="{% url 'staff_list' %}" class="btn btn-warning btn-sm">View Staff</a>
-            <a href="{% url 'staff_pdf' %}" class="btn btn-secondary btn-sm">Export PDF</a>
+<div class="row g-4 mb-4">
+
+    <div class="col-md-4">
+        <div class="card-tile bg-dark-green">
+            <h6>Total Staff</h6>
+            <h2>86</h2>
         </div>
     </div>
+
+    <div class="col-md-4">
+        <div class="card-tile bg-light-green">
+            <h6>Active Today</h6>
+            <h2>81</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card-tile bg-light-orange">
+            <h6>Departments</h6>
+            <h2>9</h2>
+        </div>
+    </div>
+
 </div>
 
-<hr>
-<canvas id="staffChart"></canvas>
+<canvas id="staffChart" height="220"></canvas>
 
 <script>
-new Chart(document.getElementById('staffChart'), {
-    type: 'doughnut',
+new Chart(staffChart, {
+    type: 'line',
     data: {
-        labels: ['Teachers', 'Support Staff'],
-        datasets: [{
-            data: [18, 7]
-        }]
+        labels: ['Mon','Tue','Wed','Thu','Fri'],
+        datasets: [{ data: [78,80,82,79,81] }]
     }
 });
 </script>
