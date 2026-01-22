@@ -29,15 +29,27 @@ def user_login(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
+
         user = authenticate(request, username=username, password=password)
+
         if user:
             login(request, user)
-            request.session['role'] = user.profile.role  # for sidebar use
-            return redirect('admin_dashboard')  # change to your dashboard view
+
+            role = user.profile.role
+
+            if role == "finance_admin":
+                return redirect('finance_dashboard')
+            elif role == "academic_admin":
+                return redirect('academic_dashboard')
+            elif role == "staff_admin":
+                return redirect('staff_dashboard')
+            else:
+                return redirect('admin_dashboard')
+
         else:
             messages.error(request, "Invalid credentials")
-    return render(request, "core/login.html")
 
+    return render(request, "core/login.html")
 
 @login_required
 def user_logout(request):
@@ -166,3 +178,24 @@ def student_pdf(request):
 def staff_pdf(request):
     staff_members = Staff.objects.all()
     return render_to_pdf("core/staff_pdf.html", {"staff_members": staff_members})
+
+@role_required(['super_admin'])
+def admin_dashboard(request):
+    return render(request, 'core/dashboard_admin.html')
+
+
+@role_required(['finance_admin'])
+def finance_dashboard(request):
+    return render(request, 'core/dashboard_finance.html')
+
+
+@role_required(['academic_admin'])
+def academic_dashboard(request):
+    return render(request, 'core/dashboard_academic.html')
+
+
+@role_required(['staff_admin'])
+def staff_dashboard(request):
+    return render(request, 'core/dashboard_staff.html')
+
+
