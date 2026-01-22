@@ -1,31 +1,46 @@
 {% extends 'core/base.html' %}
-
 {% block content %}
-<h2>Admin Dashboard</h2>
 
-<div class="row mt-4">
+<h3 class="mb-4">Super Admin Dashboard</h3>
+
+<div class="row g-3">
     <div class="col-md-4">
-        <div class="card p-3">
-            <h5>Total Students</h5>
-            <h2>320</h2>
+        <div class="card shadow p-3">
+            <h5>Students</h5>
+            <a href="{% url 'student_list' %}" class="btn btn-primary btn-sm">Manage</a>
         </div>
     </div>
 
     <div class="col-md-4">
-        <div class="card p-3">
-            <h5>Total Teachers</h5>
-            <h2>24</h2>
+        <div class="card shadow p-3">
+            <h5>Staff</h5>
+            <a href="{% url 'staff_list' %}" class="btn btn-primary btn-sm">Manage</a>
         </div>
     </div>
-    <div class="mt-4">
-    <a href="{% url 'student_list' %}">Students</a>
-    <a href="{% url 'staff_list' %}">Staff</a>
-    <a href="{% url 'fee_structure_list' %}">Fees</a>
-        Manage Users
-    </a>
+
+    <div class="col-md-4">
+        <div class="card shadow p-3">
+            <h5>Fees</h5>
+            <a href="{% url 'fee_structure_list' %}" class="btn btn-primary btn-sm">Manage</a>
+        </div>
+    </div>
 </div>
 
+<hr>
 
-</div>
+<canvas id="adminChart"></canvas>
+
+<script>
+new Chart(document.getElementById('adminChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Students', 'Staff', 'Fees'],
+        datasets: [{
+            label: 'System Overview',
+            data: [120, 25, 8]
+        }]
+    }
+});
+</script>
 
 {% endblock %}

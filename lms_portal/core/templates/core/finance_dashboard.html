@@ -1,5 +1,31 @@
 {% extends 'core/base.html' %}
 {% block content %}
-<h2>Finance Dashboard</h2>
-<p>Access to finance details</p>
+
+<h3 class="mb-4">Finance Dashboard</h3>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card shadow p-3">
+            <h5>Fee Structures</h5>
+            <a href="{% url 'fee_structure_list' %}" class="btn btn-success btn-sm">View</a>
+        </div>
+    </div>
+</div>
+
+<hr>
+<canvas id="financeChart"></canvas>
+
+<script>
+new Chart(document.getElementById('financeChart'), {
+    type: 'line',
+    data: {
+        labels: ['Term 1', 'Term 2', 'Term 3'],
+        datasets: [{
+            label: 'Projected Revenue',
+            data: [500000, 650000, 720000]
+        }]
+    }
+});
+</script>
+
 {% endblock %}
