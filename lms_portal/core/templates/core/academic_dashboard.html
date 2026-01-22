@@ -1,43 +1,140 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<h3>📚 Academic Performance</h3>
+<h3>📚 Academic Control Center</h3>
+<p class="text-muted">Curriculum management, teaching operations, student academic performance</p>
 
+<!-- KPI ROW -->
 <div class="row g-4 mb-4">
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card-tile bg-dark-green">
-            <h6>Pass Rate</h6>
-            <h2>89%</h2>
+            <h6>Total Students</h6>
+            <h2>1,245</h2>
+            <small>Enrolled this academic year</small>
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card-tile bg-light-green">
-            <h6>Average Grade</h6>
-            <h2>B+</h2>
+            <h6>Active Classes</h6>
+            <h2>48</h2>
+            <small>Running sessions</small>
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card-tile bg-light-orange">
             <h6>Subjects Offered</h6>
-            <h2>14</h2>
+            <h2>32</h2>
+            <small>Across all grades</small>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-tile bg-dark-orange">
+            <h6>Average GPA</h6>
+            <h2>3.42</h2>
+            <small>Current term</small>
         </div>
     </div>
 
 </div>
 
-<div style="max-width:420px;">
-    <canvas id="academicChart" height="200"></canvas>
+<!-- FEATURE MODULES -->
+<div class="row g-3">
+
+    <!-- Curriculum -->
+    <div class="col-md-3">
+        <div class="card-tile bg-dark-green">
+            <h6>📘 Curriculum Management</h6>
+            <ul>
+                <li>Create Courses & Subjects</li>
+                <li>Assign Lecturers</li>
+                <li>Academic Calendar</li>
+                <li>Timetable Scheduling</li>
+            </ul>
+            <a href="#" class="btn btn-light btn-sm">Manage Curriculum</a>
+        </div>
+    </div>
+
+    <!-- Students -->
+    <div class="col-md-3">
+        <div class="card-tile bg-light-green">
+            <h6>🎓 Student Academics</h6>
+            <ul>
+                <li>Course Enrollment</li>
+                <li>Promotion & Transfers</li>
+                <li>Academic Status</li>
+                <li>Deferments</li>
+            </ul>
+            <a href="#" class="btn btn-light btn-sm">View Students</a>
+        </div>
+    </div>
+
+    <!-- Assessments -->
+    <div class="col-md-3">
+        <div class="card-tile bg-light-orange">
+            <h6>📝 Assessments & Grading</h6>
+            <ul>
+                <li>Exams & CATs</li>
+                <li>Grade Moderation</li>
+                <li>GPA Computation</li>
+                <li>Transcripts</li>
+            </ul>
+            <a href="#" class="btn btn-light btn-sm">Open Assessments</a>
+        </div>
+    </div>
+
+    <!-- Reports -->
+    <div class="col-md-3">
+        <div class="card-tile bg-dark-orange">
+            <h6>📊 Academic Reports</h6>
+            <ul>
+                <li>Class Performance</li>
+                <li>Exam Analysis</li>
+                <li>Lecturer Effectiveness</li>
+                <li>Accreditation Reports</li>
+            </ul>
+            <a href="#" class="btn btn-light btn-sm">View Reports</a>
+        </div>
+    </div>
+
+</div>
+
+<hr>
+
+<!-- MINI ANALYTICS -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h6>📈 Student Performance Distribution</h6>
+        <canvas id="academicChart" height="180"></canvas>
+    </div>
+
+    <div class="col-md-6">
+        <h6>📊 Class Attendance Rate</h6>
+        <canvas id="attendanceChart" height="180"></canvas>
+    </div>
 </div>
 
 <script>
 new Chart(academicChart, {
     type: 'pie',
     data: {
-        labels: ['Pass', 'Fail', 'Incomplete'],
-        datasets: [{ data: [89, 7, 4] }]
+        labels: ['Excellent', 'Good', 'Average', 'At Risk'],
+        datasets: [{
+            data: [35, 40, 18, 7]
+        }]
+    }
+});
+
+new Chart(attendanceChart, {
+    type: 'bar',
+    data: {
+        labels: ['Mon','Tue','Wed','Thu','Fri'],
+        datasets: [{
+            data: [92, 94, 91, 95, 93]
+        }]
     }
 });
 </script>

@@ -1,78 +1,89 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<h3 class="mb-4">🏫 School Management Dashboard</h3>
+<h3 class="mb-4">🏫 Super Admin Control Center</h3>
 
-<div class="row g-4">
+<!-- KPI ROW -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3"><div class="card-tile bg-dark-orange">Total Users<br><h2>1,420</h2></div></div>
+    <div class="col-md-3"><div class="card-tile bg-light-orange">Active Sessions<br><h2>312</h2></div></div>
+    <div class="col-md-3"><div class="card-tile bg-dark-green">System Health<br><h2>99.9%</h2></div></div>
+    <div class="col-md-3"><div class="card-tile bg-light-green">Storage Usage<br><h2>68%</h2></div></div>
+</div>
 
+<!-- FEATURES GRID -->
+<div class="row g-3">
+
+    <!-- User Management -->
     <div class="col-md-3">
         <div class="card-tile bg-dark-orange">
-            <h6>Total Students</h6>
-            <h2>1,245</h2>
-            <small>Active enrollments</small>
+            <h6>👥 User & Role Management</h6>
+            <ul>
+                <li>Create / Deactivate Users</li>
+                <li>Assign Roles</li>
+                <li>Password Reset</li>
+                <li>Activity Logs</li>
+            </ul>
+            <a href="#" class="btn btn-light btn-sm mt-2">Open Module</a>
         </div>
     </div>
 
+    <!-- System Config -->
     <div class="col-md-3">
         <div class="card-tile bg-light-orange">
-            <h6>Total Staff</h6>
-            <h2>86</h2>
-            <small>Teaching & Admin</small>
+            <h6>⚙️ System Configuration</h6>
+            <ul>
+                <li>School Profile</li>
+                <li>Academic Calendar</li>
+                <li>Course Setup</li>
+                <li>Notifications</li>
+            </ul>
+            <a href="#" class="btn btn-light btn-sm mt-2">Configure</a>
         </div>
     </div>
 
+    <!-- Security -->
     <div class="col-md-3">
         <div class="card-tile bg-dark-green">
-            <h6>Fee Collection</h6>
-            <h2>KES 4.2M</h2>
-            <small>This Term</small>
+            <h6>🔐 Security & Compliance</h6>
+            <ul>
+                <li>Permissions</li>
+                <li>Audit Logs</li>
+                <li>Backup</li>
+                <li>Restore</li>
+            </ul>
+            <a href="#" class="btn btn-light btn-sm mt-2">View Logs</a>
         </div>
     </div>
 
+    <!-- Reports -->
     <div class="col-md-3">
         <div class="card-tile bg-light-green">
-            <h6>Attendance</h6>
-            <h2>94%</h2>
-            <small>Monthly Avg</small>
+            <h6>📊 Global Analytics</h6>
+            <ul>
+                <li>Enrollment Stats</li>
+                <li>Finance Overview</li>
+                <li>Usage Analytics</li>
+                <li>Performance</li>
+            </ul>
+            <a href="#" class="btn btn-light btn-sm mt-2">View Reports</a>
+        </div>
+    </div>
+
+    <!-- Integrations -->
+    <div class="col-md-3">
+        <div class="card-tile bg-dark-orange">
+            <h6>🔌 Integrations</h6>
+            <ul>
+                <li>Payments Gateway</li>
+                <li>Email / SMS</li>
+                <li>Government Portals</li>
+                <li>ERP Sync</li>
+            </ul>
+            <a href="#" class="btn btn-light btn-sm mt-2">Manage</a>
         </div>
     </div>
 
 </div>
-
-<hr>
-
-<div class="row">
-    <div class="col-md-6">
-        <h5>Enrollment Trends</h5>
-        <canvas id="enrollChart" height="220"></canvas>
-    </div>
-
-    <div class="col-md-6">
-        <h5>Revenue Breakdown</h5>
-        <canvas id="financeChart" height="220"></canvas>
-    </div>
-</div>
-
-<script>
-new Chart(enrollChart, {
-    type: 'bar',
-    data: {
-        labels: ['2021','2022','2023','2024','2025'],
-        datasets: [{
-            data: [850, 920, 1050, 1180, 1245]
-        }]
-    }
-});
-
-new Chart(financeChart, {
-    type: 'doughnut',
-    data: {
-        labels: ['Fees','Transport','Boarding','Uniforms'],
-        datasets: [{
-            data: [55, 20, 15, 10]
-        }]
-    }
-});
-</script>
 
 {% endblock %}

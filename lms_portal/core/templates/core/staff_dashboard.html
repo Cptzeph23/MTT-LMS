@@ -1,43 +1,65 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<h3>👥 Staff Overview</h3>
+<h3>👥 Staff Administration</h3>
 
 <div class="row g-4 mb-4">
-
-    <div class="col-md-4">
-        <div class="card-tile bg-dark-green">
-            <h6>Total Staff</h6>
-            <h2>86</h2>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="card-tile bg-light-green">
-            <h6>Active Today</h6>
-            <h2>81</h2>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="card-tile bg-light-orange">
-            <h6>Departments</h6>
-            <h2>9</h2>
-        </div>
-    </div>
-
+    <div class="col-md-3"><div class="card-tile bg-dark-green">Total Staff<br><h2>86</h2></div></div>
+    <div class="col-md-3"><div class="card-tile bg-light-green">Present Today<br><h2>81</h2></div></div>
+    <div class="col-md-3"><div class="card-tile bg-light-orange">On Leave<br><h2>5</h2></div></div>
+    <div class="col-md-3"><div class="card-tile bg-dark-orange">Departments<br><h2>9</h2></div></div>
 </div>
 
-<canvas id="staffChart" height="220"></canvas>
+<div class="row g-3">
 
-<script>
-new Chart(staffChart, {
-    type: 'line',
-    data: {
-        labels: ['Mon','Tue','Wed','Thu','Fri'],
-        datasets: [{ data: [78,80,82,79,81] }]
-    }
-});
-</script>
+<div class="col-md-3">
+<div class="card-tile bg-dark-green">
+<h6>Staff Management</h6>
+<ul>
+<li>Add / Edit Staff</li>
+<li>Assign Roles</li>
+<li>Upload Documents</li>
+</ul>
+<a href="#" class="btn btn-light btn-sm">Manage</a>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-tile bg-light-green">
+<h6>Attendance & Leave</h6>
+<ul>
+<li>Daily Attendance</li>
+<li>Leave Approval</li>
+<li>Workload Allocation</li>
+</ul>
+<a href="#" class="btn btn-light btn-sm">Open</a>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-tile bg-light-orange">
+<h6>Communication</h6>
+<ul>
+<li>Announcements</li>
+<li>Direct Messaging</li>
+<li>Meeting Scheduling</li>
+</ul>
+<a href="#" class="btn btn-light btn-sm">Open</a>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-tile bg-dark-orange">
+<h6>Performance Records</h6>
+<ul>
+<li>Appraisals</li>
+<li>Discipline</li>
+<li>Training</li>
+</ul>
+<a href="#" class="btn btn-light btn-sm">View</a>
+</div>
+</div>
+
+</div>
 
 {% endblock %}

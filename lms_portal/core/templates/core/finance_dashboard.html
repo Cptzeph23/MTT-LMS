@@ -1,43 +1,65 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
-<h3>💰 Finance Overview</h3>
+<h3>💰 Finance Operations</h3>
 
 <div class="row g-4 mb-4">
-
-    <div class="col-md-4">
-        <div class="card-tile bg-dark-orange">
-            <h6>Collected</h6>
-            <h2>KES 4.2M</h2>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="card-tile bg-light-orange">
-            <h6>Pending</h6>
-            <h2>KES 860K</h2>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="card-tile bg-dark-green">
-            <h6>Expenses</h6>
-            <h2>KES 1.9M</h2>
-        </div>
-    </div>
-
+    <div class="col-md-3"><div class="card-tile bg-dark-green">Collected<br><h2>KES 4.2M</h2></div></div>
+    <div class="col-md-3"><div class="card-tile bg-light-green">Pending<br><h2>KES 860K</h2></div></div>
+    <div class="col-md-3"><div class="card-tile bg-light-orange">Invoices<br><h2>1,024</h2></div></div>
+    <div class="col-md-3"><div class="card-tile bg-dark-orange">Refunds<br><h2>12</h2></div></div>
 </div>
 
-<canvas id="financeChart" height="220"></canvas>
+<div class="row g-3">
 
-<script>
-new Chart(financeChart, {
-    type: 'bar',
-    data: {
-        labels: ['Jan','Feb','Mar','Apr','May'],
-        datasets: [{ data: [700,900,800,1100,1200] }]
-    }
-});
-</script>
+<div class="col-md-3">
+<div class="card-tile bg-dark-green">
+<h6>Fees Management</h6>
+<ul>
+<li>Fee Structures</li>
+<li>Invoices</li>
+<li>Balances</li>
+</ul>
+<a href="#" class="btn btn-light btn-sm">Open</a>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-tile bg-light-green">
+<h6>Transactions</h6>
+<ul>
+<li>Payments</li>
+<li>Refunds</li>
+<li>Verifications</li>
+</ul>
+<a href="#" class="btn btn-light btn-sm">Open</a>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-tile bg-light-orange">
+<h6>Budgeting</h6>
+<ul>
+<li>Expenses</li>
+<li>Payroll</li>
+<li>Budgets</li>
+</ul>
+<a href="#" class="btn btn-light btn-sm">Open</a>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-tile bg-dark-orange">
+<h6>Reports & Audit</h6>
+<ul>
+<li>Revenue</li>
+<li>Balances</li>
+<li>Exports</li>
+</ul>
+<a href="#" class="btn btn-light btn-sm">View</a>
+</div>
+</div>
+
+</div>
 
 {% endblock %}
